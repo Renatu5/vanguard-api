@@ -3,24 +3,30 @@ package com.renato.vanguard_api.model.card;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 
 @Entity
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ArrayList<String> cardIds = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "card_ids", joinColumns = @JoinColumn(name = "card_db_id"))
+    @Column(name = "card_id")
+    private List<String> cardIds;
     private String name;
     private String grade;
     private String specialIcon;
-    private String flavourText;
+    private String flavorText;
     private String nation;
+    private String race;
     private String clan;
     private String type;
     private String format;
@@ -28,28 +34,32 @@ public class Card {
     private String cardEffect;
     private String source;
     private String imageSource;
-    private ArrayList<String> rarities = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "card_rarities", joinColumns = @JoinColumn(name = "card_db_id"))
+    @Column(name = "rarity")
+    private List<String> rarities;
     private String artist;
 
     public Card() {
     }
 
-    public Card(String cardIds, String name, String grade, String specialIcon, String flavourText, String nation,
-            String clan, String type, String format, String cardEffect, String source, String imageSource,
-            String rarities, String artist) {
-        this.cardIds.add(cardIds);
+    public Card(List<String> cardIds, String name, String grade, String specialIcon, String flavourText, String nation,
+            String race, String clan, String type, String format, String cardEffect, String source, String imageSource,
+            List<String> rarities, String artist) {
+        this.cardIds = cardIds;
         this.name = name;
         this.grade = grade;
         this.specialIcon = specialIcon;
-        this.flavourText = flavourText;
+        this.flavorText = flavourText;
         this.nation = nation;
+        this.race = race;
         this.clan = clan;
         this.type = type;
         this.format = format;
         this.cardEffect = cardEffect;
         this.source = source;
         this.imageSource = imageSource;
-        this.rarities.add(rarities);
+        this.rarities = rarities;
         this.artist = artist;
     }
 
@@ -73,8 +83,8 @@ public class Card {
         return specialIcon;
     }
 
-    public String getFlavourText() {
-        return flavourText;
+    public String getFlavorText() {
+        return flavorText;
     }
 
     public String getNation() {
@@ -136,6 +146,10 @@ public class Card {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public String getRace() {
+        return race;
     }
 
 }

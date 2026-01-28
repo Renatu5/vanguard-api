@@ -29,17 +29,18 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private List<Card> cards;
-    
-    private Date releaseDate;
+    private String cardList;
+    private String releaseDate;
 
     public Product() {
     }
 
-    public Product(String productCode, String name, int quantity, List<Card> cards, Date releaseDate) {
+    public Product(String productCode, String name, String cardList, String releaseDate) {
         ProductCode = productCode;
         this.name = name;
-        this.quantity = quantity;
-        this.cards = cards;
+        this.quantity = 0;
+        this.cards = null;
+        this.cardList = cardList;
         this.releaseDate = releaseDate;
     }
 
@@ -63,8 +64,20 @@ public class Product {
         return cards;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public String getCardList() {
+        return cardList;
     }
 
 }
