@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: vanguard-api
+    env: docker
+    plan: free
+    region: oregon
+    branch: main
+
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
