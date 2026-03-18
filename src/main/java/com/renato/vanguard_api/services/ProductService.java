@@ -29,6 +29,12 @@ public class ProductService {
         return produtoRepository.save(product);
     }
 
+    public String getProductsList(){
+        StringBuilder sb = new StringBuilder();
+        produtoRepository.findAll().forEach((product) -> sb.append(product.getId() + ":" + product.getName()));
+        return sb.toString();
+    }
+
     public void deleteProduct(Long id) {
         if (!produtoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Product with the given ID not found: " + id);

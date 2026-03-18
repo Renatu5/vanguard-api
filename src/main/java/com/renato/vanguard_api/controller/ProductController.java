@@ -68,6 +68,11 @@ public class ProductController {
         return ResponseEntity.ok(cards);
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<?> getProductIdsList(){
+        String listProducts = productService.getProductsList();
+        return ResponseEntity.ok(listProducts);
+    }
     @PostMapping("")
     public Product createProduct(@RequestBody Product product) {
         return productService.saveProduct(product);
